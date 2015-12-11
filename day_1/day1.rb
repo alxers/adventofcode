@@ -1,13 +1,22 @@
+def position(floor, index)
+  if floor == -1
+    puts index + 1
+  end
+end
+
 File.foreach('input.txt') do |line|
-  count = 0
-  line.chars.each do |char|
+  floor = 0
+  line.chars.each_with_index do |char, i|
     if /\(/ =~ char
-      count += 1
+      floor += 1
     end
 
     if /\)/ =~ char
-      count -= 1
+      floor -= 1
     end
+
+    position(floor, i)
   end
-  puts count
+  puts floor
 end
+
