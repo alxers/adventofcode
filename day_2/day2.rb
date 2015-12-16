@@ -7,18 +7,28 @@ end
 
 def min_ribbon_dimensions(l, w, h)
   arr = [l, w, h]
-  arr.delete(arr.max)
-  arr.inject { |i, j| i * 2 + j * 2 }
+  arr.delete_at(arr.index(arr.max))
+  arr.reduce { |i, j| 2 * (i + j) }
 end
 
-@sum_of_all = 0
-
-File.foreach('input.txt') do |line|
-
-  dimensions = line.split('x')
-  l, w, h = dimensions.collect(&:to_i)
-
-  @sum_of_all += amount_of_paper(l, w, h)
+def ribbon_for_bow(l, w, h)
+  l * w * h
 end
 
-puts @sum_of_all
+def calc_sizes
+  sum_of_all_paper = 0
+  amount_of_ribbon = 0
+
+  File.foreach('input.txt') do |line|
+
+    dimensions = line.split('x')
+    l, w, h = dimensions.collect(&:to_i)
+
+    amount_of_ribbon += min_ribbon_dimensions(l, w, h) + ribbon_for_bow(l, w, h)
+    sum_of_all_paper += amount_of_paper(l, w, h)
+  end
+  puts sum_of_all_paper
+  puts amount_of_ribbon
+end
+
+calc_sizes
