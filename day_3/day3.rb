@@ -1,5 +1,7 @@
 require 'pry-byebug'
 
+FIRST_HOUSE = 1
+
 def get_directions
   directions = []
   File.foreach('input.txt') do |line|
@@ -8,7 +10,7 @@ def get_directions
   directions
 end
 
-def unique_visits(directions)
+def uniq_visits(directions)
   result = []
   x = 0
   y = 0
@@ -26,7 +28,17 @@ def unique_visits(directions)
     end
     result.push("#{x} | #{y}")
   end
-  puts result.uniq.size
+  #puts result.uniq.size + FIRST_HOUSE
+  result
 end
 
-unique_visits(get_directions)
+def uniq_visits_2(input)
+  even = []
+  odd = []
+  input.each_with_index{ |n, i| if i.even? then even.push(n) else odd.push(n) end }
+  super_result = uniq_visits(even) + uniq_visits(odd)
+  puts super_result.uniq.size + FIRST_HOUSE
+end
+
+#unique_visits(get_directions)
+uniq_visits_2(get_directions)
