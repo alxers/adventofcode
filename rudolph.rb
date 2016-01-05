@@ -16,4 +16,4 @@ class Rudolph
   end
 end
 
-Rudolph.new(6).run
+Rudolph.new(9).run
