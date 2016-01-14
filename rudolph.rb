@@ -1,6 +1,7 @@
 class Rudolph
 
   def initialize(day_num)
+    puts "Day #{day_num}"
     @day_num = day_num
     @lines = []
     File.foreach("./day_#{@day_num}/input.txt") do |line|
@@ -16,4 +17,4 @@ class Rudolph
   end
 end
 
-Rudolph.new(13).run
+Rudolph.new(ARGV.first).run
