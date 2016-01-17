@@ -9,7 +9,9 @@ class Star1
   end
 
   def inc_letter(str)
+    # TODO: this logic is not right, see examples
     str.chars.map do |letter|
+      binding.pry
       next_letter = letter.next
       if next_letter.length > 1
         next_letter[0]
@@ -28,7 +30,7 @@ class Star1
   end
 
   def make_password(str)
-    if restricted_chars?(str) && matching_pairs?(str)
+    if !restricted_chars?(str) && matching_pairs?(str)
       str
     else
       make_password(inc_letter(str))
