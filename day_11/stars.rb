@@ -2,23 +2,10 @@ require 'pry'
 
 class Star1
 
-  INPUT = "abcdefgh"
+  INPUT = "vzbxkghb"
 
   def initialize
-    p make_password(INPUT)
-  end
-
-  def inc_letter(str)
-    # TODO: this logic is not right, see examples
-    str.chars.map do |letter|
-      binding.pry
-      next_letter = letter.next
-      if next_letter.length > 1
-        next_letter[0]
-      else
-        next_letter
-      end
-    end.join
+    p make_pass(INPUT)
   end
 
   def restricted_chars?(str)
@@ -29,12 +16,20 @@ class Star1
     str.match(/(.)\1\w*(?!\1)(.)\2/)
   end
 
-  def make_password(str)
-    if !restricted_chars?(str) && matching_pairs?(str)
-      str
-    else
-      make_password(inc_letter(str))
+  def correct_sequence?(str)
+    str.chars.each_with_index { |_, i| return true if str[i].next == str[i+1] && str[i+1].next == str[i+2] }
+    false
+  end
+
+  def valid_pass?(str)
+    !restricted_chars?(str) && correct_sequence?(str) && matching_pairs?(str)
+  end
+
+  def make_pass(str)
+    while !(valid_pass?(str) && str != 'vzbxxyzz')
+      str = str.next
     end
+    puts str
   end
 end
 
